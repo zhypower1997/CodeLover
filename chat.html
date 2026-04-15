@@ -32,6 +32,39 @@
       flex-shrink: 0;
       position: relative;
     }
+    /* 左下角金色光晕 */
+    .session-panel::before {
+      content: '';
+      position: absolute;
+      bottom: -40px;
+      left: -40px;
+      width: 220px;
+      height: 220px;
+      background: radial-gradient(circle at 30% 70%,
+        rgba(212, 175, 80, 0.22) 0%,
+        rgba(189, 140, 40, 0.10) 35%,
+        transparent 70%
+      );
+      pointer-events: none;
+      z-index: 0;
+    }
+    /* 右侧边缘竖向金色光条 */
+    .session-panel::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 1px;
+      height: 60%;
+      background: linear-gradient(180deg,
+        transparent 0%,
+        rgba(212, 175, 80, 0.35) 40%,
+        rgba(212, 175, 80, 0.55) 70%,
+        rgba(212, 175, 80, 0.2) 100%
+      );
+      pointer-events: none;
+      z-index: 0;
+    }
     .session-panel.collapsed {
       width: 32px;
     }
@@ -227,11 +260,13 @@
       display: flex;
       flex-direction: column;
       z-index: 2;
-      background: linear-gradient(180deg, rgba(10,10,10,0.93) 0%, rgba(8,8,8,0.96) 100%);
-      border: 1px solid rgba(189,161,102,0.4);
+      background: rgba(10,10,10,0.55);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(189,161,102,0.35);
       border-radius: 16px;
       overflow: hidden;
-      box-shadow: 0 8px 40px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,223,154,0.07);
+      box-shadow: 0 8px 40px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,223,154,0.07);
     }
     .header {
       background: rgba(15,15,15,0.6);
@@ -323,14 +358,23 @@
       box-shadow: inset 0 1px 0 rgba(255, 223, 154, 0.1), 0 4px 20px rgba(0,0,0,0.45);
     }
     .message.user {
-      background: linear-gradient(180deg, rgba(80, 62, 34, 0.88) 0%, rgba(58, 44, 22, 0.92) 100%);
+      background:
+        radial-gradient(ellipse at 50% 30%,
+          rgba(212, 175, 80, 0.28) 0%,
+          rgba(160, 120, 40, 0.12) 45%,
+          transparent 72%
+        ),
+        linear-gradient(180deg, rgba(95, 72, 35, 0.90) 0%, rgba(55, 42, 18, 0.94) 100%);
       backdrop-filter: blur(6px);
       -webkit-backdrop-filter: blur(6px);
-      color: #f0e4c7;
+      color: #f5ecd4;
       align-self: flex-end;
       border-bottom-right-radius: 4px;
-      border: 1px solid rgba(189, 161, 102, 0.6);
-      box-shadow: inset 0 1px 0 rgba(255, 236, 188, 0.18), 0 4px 18px rgba(0,0,0,0.4);
+      border: 1px solid rgba(212, 175, 80, 0.65);
+      box-shadow:
+        inset 0 1px 0 rgba(255, 220, 120, 0.28),
+        0 4px 18px rgba(0,0,0,0.4),
+        0 0 12px rgba(180, 140, 50, 0.12);
     }
     .message.loading { opacity: 0.6; font-style: italic; }
     .welcome {
