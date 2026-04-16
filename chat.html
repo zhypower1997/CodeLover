@@ -349,8 +349,6 @@
     }
     .message.ai {
       background: linear-gradient(180deg, rgba(15, 15, 15, 0.82) 0%, rgba(10, 10, 10, 0.88) 100%);
-      backdrop-filter: blur(6px);
-      -webkit-backdrop-filter: blur(6px);
       color: #e8ddc2;
       align-self: flex-start;
       border-radius: 18px 18px 18px 4px;
@@ -365,8 +363,6 @@
           transparent 72%
         ),
         linear-gradient(180deg, rgba(95, 72, 35, 0.90) 0%, rgba(55, 42, 18, 0.94) 100%);
-      backdrop-filter: blur(6px);
-      -webkit-backdrop-filter: blur(6px);
       color: #f5ecd4;
       align-self: flex-end;
       border-bottom-right-radius: 4px;
@@ -398,8 +394,7 @@
       width: 36px; height: 36px;
       border-radius: 50%;
       border: 1px solid rgba(189, 161, 102, 0.7);
-      background: rgba(25, 25, 25, 0.7);
-      backdrop-filter: blur(4px);
+      background: rgba(25, 25, 25, 0.75);
       font-size: 18px;
       cursor: pointer;
       transition: all 0.15s;
@@ -443,8 +438,7 @@
       font-size: 14px;
       outline: none;
       color: #f2e7cb;
-      background: rgba(20, 20, 20, 0.7);
-      backdrop-filter: blur(4px);
+      background: rgba(20, 20, 20, 0.75);
     }
     .input-area input::placeholder { color: rgba(211, 190, 145, 0.72); }
     .input-area input:focus {
@@ -683,7 +677,7 @@
 
     <!-- 立绘背景层 -->
     <div class="character-bg">
-      <img class="character-image" src="pet-big.png" alt="立绘">
+      <img class="character-image" src="pet-image.png" alt="立绘">
     </div>
 
     <!-- 内容分栏 -->
@@ -1079,12 +1073,26 @@
     let currentSessionId = null;
     let sessions = [];
 
+    // ===== 内存缓存，避免频繁读写 localStorage =====
+    let _profileCache = null;
+    let _systemPromptCache = null;
+
     // ===== 用户信息管理 =====
     function getUserProfile() {
-      return JSON.parse(localStorage.getItem(USER_PROFILE_KEY) || '{}');
+      if (!_profileCache) {
+        _profileCache = JSON.parse(localStorage.getItem(USER_PROFILE_KEY) || '{}');
+      }
+      return _profileCache;
+    }
+
+    // 设置更新后清除缓存
+    function invalidateProfileCache() {
+      _profileCache = null;
+      _systemPromptCache = null;
     }
 
     function buildSystemPrompt() {
+      if (_systemPromptCache) return _systemPromptCache;
       const profile = getUserProfile();
       const aiName = profile.aiName || '沈砚之';
       const p = getProgression();
@@ -1141,19 +1149,22 @@
         }
       }
 
+      let prompt;
       if (userInfo || extraContext) {
-        return `${basePrompt}
+        prompt = `${basePrompt}
 
 【关于用户的信息】（这些信息可以帮助你更好地理解和关心用户）：
 ${userInfo}
 ${extraContext}
 
 【重要提醒】你始终是${aiName}，以上人设、性格、语气是你的核心身份，不可因为对话内容而偏离或忘记。无论聊到什么话题，都要保持在角色中。`;
-      }
-      
-      return `${basePrompt}
+      } else {
+        prompt = `${basePrompt}
 
 【重要提醒】你始终是${aiName}，以上人设、性格、语气是你的核心身份，不可因为对话内容而偏离或忘记。无论聊到什么话题，都要保持在角色中。`;
+      }
+      _systemPromptCache = prompt;
+      return prompt;
     }
 
     // ===== 会话管理 =====
@@ -1167,8 +1178,13 @@ ${extraContext}
       renderSessionList();
     }
 
+    let _saveTimer = null;
     function saveSessions() {
-      localStorage.setItem(SESSION_KEY, JSON.stringify({ sessions, currentSessionId }));
+      if (_saveTimer) clearTimeout(_saveTimer);
+      _saveTimer = setTimeout(() => {
+        localStorage.setItem(SESSION_KEY, JSON.stringify({ sessions, currentSessionId }));
+        _saveTimer = null;
+      }, 300);
     }
 
     function generateId() {
@@ -1236,16 +1252,29 @@ ${extraContext}
     }
 
     // ===== 渲染消息 =====
+    // 记录上次渲染的会话 id 和消息数，实现增量追加
+    let _lastRenderedSessionId = null;
+    let _lastRenderedCount = 0;
+
+    function createMessageEl(m) {
+      const el = document.createElement('div');
+      el.className = `message ${m.role === 'assistant' ? 'ai' : m.role}`;
+      el.textContent = m.content;
+      return el;
+    }
+
     function renderMessages() {
       const session = getCurrentSession();
+
       if (!session) {
         chatContainer.innerHTML = `
           <div class="welcome">
             <div class="emoji">🏠</div>
             <p>你好，我是沈砚之</p>
             <p style="margin-top: 10px; font-size: 12px;">想聊什么都可以</p>
-          </div>
-        `;
+          </div>`;
+        _lastRenderedSessionId = null;
+        _lastRenderedCount = 0;
         return;
       }
 
@@ -1255,15 +1284,36 @@ ${extraContext}
             <div class="emoji">💬</div>
             <p>想聊点什么？</p>
             <p style="margin-top: 10px; font-size: 12px;">我在这里</p>
-          </div>
-        `;
+          </div>`;
+        _lastRenderedSessionId = session.id;
+        _lastRenderedCount = 0;
         return;
       }
 
-      chatContainer.innerHTML = session.messages.map(m => `
-        <div class="message ${m.role === 'assistant' ? 'ai' : m.role}">${m.content}</div>
-      `).join('');
-      chatContainer.scrollTop = chatContainer.scrollHeight;
+      // 切换了会话，需要完整重建（但这是低频操作）
+      if (_lastRenderedSessionId !== session.id) {
+        const fragment = document.createDocumentFragment();
+        session.messages.forEach(m => fragment.appendChild(createMessageEl(m)));
+        chatContainer.innerHTML = '';
+        chatContainer.appendChild(fragment);
+        _lastRenderedSessionId = session.id;
+        _lastRenderedCount = session.messages.length;
+        chatContainer.scrollTop = chatContainer.scrollHeight;
+        return;
+      }
+
+      // 同一会话，只追加新增的消息
+      if (session.messages.length > _lastRenderedCount) {
+        // 移除欢迎占位（如果还在）
+        const welcome = chatContainer.querySelector('.welcome');
+        if (welcome) welcome.remove();
+        const newMessages = session.messages.slice(_lastRenderedCount);
+        const fragment = document.createDocumentFragment();
+        newMessages.forEach(m => fragment.appendChild(createMessageEl(m)));
+        chatContainer.appendChild(fragment);
+        _lastRenderedCount = session.messages.length;
+        chatContainer.scrollTop = chatContainer.scrollHeight;
+      }
     }
 
     // ===== 发送消息 =====
