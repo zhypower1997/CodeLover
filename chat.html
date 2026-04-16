@@ -110,7 +110,7 @@
       mix-blend-mode: multiply;
       filter: saturate(0.5) brightness(1.1);
     }
-    /* ===== 立绘尺寸背景层（立绘与纹理之间） ===== */
+    /* ===== 樱花飘落层（立绘与纹理之间） ===== */
     .character-texture-bg {
       position: absolute;
       bottom: 0;
@@ -121,15 +121,10 @@
       pointer-events: none;
       overflow: hidden;
     }
-    .character-texture-bg img {
+    #sakuraCanvas {
       display: block;
       width: 100%;
       height: 100%;
-      object-fit: cover;
-      object-position: center;
-      opacity: 1;
-      mix-blend-mode: multiply;
-      filter: saturate(0.4) brightness(1.15);
     }
     /* ===== 立绘：固定在左下角 ===== */
     .character-bg {
@@ -922,9 +917,9 @@
       <img src="bg.jpg" alt="">
     </div>
 
-    <!-- 立绘尺寸背景层（纹理与立绘之间） -->
+    <!-- 樱花飘落层（纹理与立绘之间） -->
     <div class="character-texture-bg">
-      <img src="bg.png" alt="">
+      <canvas id="sakuraCanvas"></canvas>
     </div>
 
     <!-- 立绘背景层 -->
@@ -1048,6 +1043,117 @@
   </div>
 
   <script>
+    // ===== 樱花飘落动画 =====
+    (function() {
+      const canvas = document.getElementById('sakuraCanvas');
+      const container = canvas.parentElement;
+
+      function resize() {
+        canvas.width  = container.offsetWidth;
+        canvas.height = container.offsetHeight;
+      }
+      resize();
+      window.addEventListener('resize', resize);
+
+      const ctx = canvas.getContext('2d');
+
+      // 花瓣颜色池（粉白系）
+      const COLORS = [
+        'rgba(255,183,197,',
+        'rgba(255,210,220,',
+        'rgba(255,230,235,',
+        'rgba(255,160,185,',
+        'rgba(255,245,248,',
+      ];
+
+      // 绘制单片花瓣（椭圆形，带旋转）
+      function drawPetal(ctx, x, y, rx, ry, angle, alpha, color) {
+        ctx.save();
+        ctx.translate(x, y);
+        ctx.rotate(angle);
+        ctx.beginPath();
+        ctx.ellipse(0, 0, rx, ry, 0, 0, Math.PI * 2);
+        ctx.fillStyle = color + alpha + ')';
+        ctx.fill();
+        // 花瓣中央淡色高光
+        ctx.beginPath();
+        ctx.ellipse(rx * 0.1, -ry * 0.15, rx * 0.45, ry * 0.35, -0.3, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(255,255,255,' + (alpha * 0.45) + ')';
+        ctx.fill();
+        ctx.restore();
+      }
+
+      // 绘制五瓣樱花
+      function drawSakura(ctx, x, y, r, spin, alpha, colorBase) {
+        ctx.save();
+        ctx.translate(x, y);
+        ctx.rotate(spin);
+        for (let i = 0; i < 5; i++) {
+          ctx.save();
+          ctx.rotate((Math.PI * 2 / 5) * i);
+          drawPetal(ctx, 0, -r * 0.55, r * 0.38, r * 0.55, 0, alpha, colorBase);
+          ctx.restore();
+        }
+        // 花心
+        ctx.beginPath();
+        ctx.arc(0, 0, r * 0.18, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(255,220,230,' + (alpha * 0.9) + ')';
+        ctx.fill();
+        ctx.restore();
+      }
+
+      const PETAL_COUNT = 28;
+      const petals = [];
+
+      function randomPetal(forceTop) {
+        const w = canvas.width  || 480;
+        const h = canvas.height || 600;
+        return {
+          x:      Math.random() * (w + 80) - 40,
+          y:      forceTop ? -Math.random() * h * 0.3 : Math.random() * h,
+          r:      6 + Math.random() * 12,          // 半径 6-18px
+          spin:   Math.random() * Math.PI * 2,
+          spinV:  (Math.random() - 0.5) * 0.04,    // 自转速度
+          vx:     (Math.random() - 0.4) * 0.6,     // 横向漂移
+          vy:     0.6 + Math.random() * 1.0,        // 下落速度
+          sway:   Math.random() * Math.PI * 2,      // 飘摆相位
+          swayA:  0.3 + Math.random() * 0.5,        // 飘摆幅度
+          swayS:  0.008 + Math.random() * 0.012,    // 飘摆速度
+          alpha:  0.55 + Math.random() * 0.4,
+          color:  COLORS[Math.floor(Math.random() * COLORS.length)],
+        };
+      }
+
+      // 初始化：分散在整个高度
+      for (let i = 0; i < PETAL_COUNT; i++) {
+        petals.push(randomPetal(false));
+      }
+
+      function tick() {
+        const w = canvas.width;
+        const h = canvas.height;
+        ctx.clearRect(0, 0, w, h);
+
+        for (const p of petals) {
+          p.sway += p.swayS;
+          p.x    += p.vx + Math.sin(p.sway) * p.swayA;
+          p.y    += p.vy;
+          p.spin += p.spinV;
+
+          // 离开画布底部 → 从顶部重生
+          if (p.y > h + p.r * 2) {
+            Object.assign(p, randomPetal(true));
+          }
+
+          drawSakura(ctx, p.x, p.y, p.r, p.spin, p.alpha, p.color);
+        }
+
+        requestAnimationFrame(tick);
+      }
+
+      tick();
+    })();
+
     // 引入养成系统
     const {
       addAffection, getProgression, getCurrentStage, getStageProgress,
