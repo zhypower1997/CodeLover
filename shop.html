@@ -331,6 +331,138 @@
       vertical-align: middle;
       flex-shrink: 0;
     }
+
+    /* ===== 黑金主题 ===== */
+    body.theme-dark {
+      background: linear-gradient(180deg, #1c1508 0%, #100c02 100%);
+      color: #F5C518;
+    }
+    body.theme-dark ::-webkit-scrollbar-track { background: rgba(160,118,0,0.05); }
+    body.theme-dark ::-webkit-scrollbar-thumb { background: rgba(160,130,50,0.25); }
+    body.theme-dark ::-webkit-scrollbar-thumb:hover { background: rgba(160,130,50,0.4); }
+    body.theme-dark .titlebar {
+      background: rgba(14,10,2,0.98);
+      border-bottom-color: rgba(160,130,50,0.28);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.4);
+    }
+    body.theme-dark .titlebar-title { color: #b89840; }
+    body.theme-dark .titlebar-close {
+      background: rgba(160,130,50,0.1);
+      border-color: rgba(160,130,50,0.38);
+      color: #b89840;
+    }
+    body.theme-dark .titlebar-close:hover {
+      background: rgba(180,138,10,0.55);
+      border-color: #b89840;
+      color: #1c1508;
+    }
+    body.theme-dark .coin-header {
+      background: rgba(14,10,2,0.97);
+      border-bottom-color: rgba(160,130,50,0.12);
+    }
+    body.theme-dark .coin-display {
+      background: rgba(160,130,50,0.08);
+      border-color: rgba(160,130,50,0.28);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.35), inset 0 1px 0 rgba(170,138,55,0.07);
+    }
+    body.theme-dark .coin-amount {
+      background: linear-gradient(135deg, #F5C518 0%, #b89840 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    body.theme-dark .coin-income { color: rgba(160,130,50,0.65); }
+    body.theme-dark .coin-income span { color: #b89840; }
+    body.theme-dark .shop-title { color: #b89840; }
+    body.theme-dark .gift-item {
+      background: rgba(20,15,3,0.98);
+      border-color: rgba(160,130,50,0.12);
+    }
+    body.theme-dark .gift-item::before {
+      background: linear-gradient(90deg, #b89840, rgba(160,130,50,0.25), #b89840);
+    }
+    body.theme-dark .gift-item:hover {
+      border-color: rgba(160,130,50,0.42);
+      box-shadow: 0 8px 28px rgba(0,0,0,0.4), 0 0 15px rgba(160,130,50,0.06);
+    }
+    body.theme-dark .gift-item.owned {
+      border-color: rgba(160,130,50,0.4);
+      background: rgba(30,22,5,0.92);
+    }
+    body.theme-dark .gift-item.owned::after {
+      background: #b89840;
+    }
+    body.theme-dark .gift-name { color: #F5C518; }
+    body.theme-dark .gift-desc { color: rgba(160,130,50,0.6); }
+    body.theme-dark .gift-price {
+      background: rgba(160,130,50,0.08);
+      color: #b89840;
+      border-color: rgba(160,130,50,0.25);
+    }
+    body.theme-dark .gift-price.owned {
+      color: #b89840;
+      background: rgba(160,118,0,0.12);
+      border-color: rgba(160,130,50,0.25);
+    }
+    body.theme-dark .shop-footer {
+      background: rgba(14,10,2,0.98);
+      border-top-color: rgba(160,130,50,0.12);
+    }
+    body.theme-dark .income-rules h4 { color: #b89840; }
+    body.theme-dark .income-rules li {
+      background: rgba(20,15,3,0.96);
+      border-color: rgba(160,130,50,0.09);
+      color: rgba(160,130,50,0.75);
+    }
+    body.theme-dark .income-rules li:hover { border-color: rgba(160,130,50,0.32); }
+    body.theme-dark .coin-reward {
+      color: #b89840;
+      background: rgba(160,130,50,0.08);
+    }
+    body.theme-dark .buy-modal { background: rgba(8,6,1,0.88); }
+    body.theme-dark .buy-modal .content {
+      background: linear-gradient(180deg, #1c1508 0%, #120e02 100%);
+      border-color: rgba(160,130,50,0.32);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.7), inset 0 1px 0 rgba(170,138,55,0.08);
+    }
+    body.theme-dark .buy-modal h3 { color: #b89840; }
+    body.theme-dark .buy-modal p { color: rgba(160,130,50,0.6); }
+    body.theme-dark .buy-modal .price { color: #b89840; }
+    body.theme-dark .buy-modal .btn-cancel {
+      background: rgba(22,17,5,0.85);
+      color: #9a7c20;
+      border-color: rgba(160,130,50,0.25);
+    }
+    body.theme-dark .buy-modal .btn-cancel:hover { background: rgba(36,28,8,0.92); }
+    body.theme-dark .buy-modal .btn-buy {
+      background: linear-gradient(135deg, #9a7c20 0%, #6a5410 100%);
+      border-color: #9a7c20;
+    }
+    body.theme-dark .buy-modal .btn-buy:hover {
+      background: linear-gradient(135deg, #9a8030 0%, #7a6018 100%);
+    }
+    body.theme-dark .toast {
+      background: rgba(16,12,2,0.98);
+      color: #b89840;
+      border-color: rgba(160,130,50,0.35);
+      box-shadow: 0 6px 24px rgba(0,0,0,0.45);
+    }
+    body.theme-dark .toast.success {
+      background: rgba(18,14,3,0.97);
+      border-color: rgba(160,130,50,0.35);
+      color: #b89840;
+    }
+    body.theme-dark .toast.error {
+      background: rgba(28,14,8,0.97);
+      border-color: rgba(180,80,30,0.4);
+      color: #d4804a;
+    }
+    /* icon 颜色 */
+    body.theme-dark .svg-icon { background-color: #b89840; }
+    body.theme-dark [style*="background-color:#c03050"],
+    body.theme-dark [style*="background-color: #c03050"] {
+      background-color: #b89840 !important;
+    }
   </style>
 </head>
 <body>
@@ -545,6 +677,11 @@
     checkDailyLogin();
     checkOnlineReward();
     setInterval(checkOnlineReward, 60000);
+
+    // 同步主题
+    if (localStorage.getItem('monkey_theme') === 'dark') {
+      document.body.classList.add('theme-dark');
+    }
   </script>
 </body>
 </html>

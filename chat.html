@@ -329,6 +329,16 @@
       mask-position: center;
       flex-shrink: 0;
     }
+    .theme-icon {
+      background-color: transparent !important;
+      -webkit-mask-image: none !important;
+      mask-image: none !important;
+      font-size: 14px;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
     .chat-container {
       flex: 1;
       overflow-y: auto;
@@ -781,6 +791,7 @@
       width: 26px; height: 26px; border-radius: 50%;
       border: 1px solid rgba(255,160,185,0.4);
       background: rgba(255,240,245,0.8);
+      color: #c06080;
       cursor: pointer; display: flex; align-items: center; justify-content: center;
       transition: all 0.2s; padding: 0; flex-shrink: 0;
     }
@@ -789,6 +800,7 @@
     .message.music-card .music-btn.play {
       background: linear-gradient(135deg, #FFB7C5 0%, #FF9AAF 100%);
       border-color: #FF9AAF;
+      color: #fff;
     }
     .message.music-card .music-status { font-size: 9px; color: #c03050; text-align: center; line-height: 1; }
     /* ===== 养成系统UI ===== */
@@ -971,6 +983,375 @@
       margin-left: 6px;
       vertical-align: middle;
     }
+
+    /* ===== 黑金主题 ===== */
+    body.theme-dark {
+      background:
+        radial-gradient(circle at 75% 35%, rgba(27, 25, 20, 0.06) 0%, transparent 45%),
+        radial-gradient(circle at 25% 70%, rgba(45, 41, 29, 0.04) 0%, transparent 40%),
+        linear-gradient(180deg, #1c1508 0%, #100c02 55%, #1a1306 100%);
+      color: #c3ad5f;
+    }
+    body.theme-dark .header {
+      background: rgba(14,10,2,0.98);
+      border-bottom-color: rgba(170,138,55,0.3);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.5);
+    }
+    body.theme-dark .header-left { color: #c3ad5f; }
+    body.theme-dark .action-btn {
+      background: rgba(170,138,55,0.08);
+      border-color: rgba(170,138,55,0.3);
+    }
+    body.theme-dark .action-btn:hover {
+      background: rgba(170,138,55,0.16);
+    }
+    body.theme-dark .action-btn .btn-icon { background-color: #b89840; }
+    /* 弹窗、面板内所有 SVG mask icon 黑金化 */
+    body.theme-dark .session-panel-header .btn-icon,
+    body.theme-dark .progression-title .btn-icon,
+    body.theme-dark [style*="background-color:#c03050"],
+    body.theme-dark [style*="background-color: #c03050"] {
+      background-color: #b89840 !important;
+    }
+    body.theme-dark .close-btn {
+      background: rgba(170,138,55,0.1);
+      border-color: rgba(170,138,55,0.4);
+      color: #b89840;
+    }
+    body.theme-dark .close-btn:hover {
+      background: rgba(180,138,10,0.55);
+      border-color: #b89840;
+      color: #1c1508;
+    }
+    body.theme-dark .session-panel {
+      background: rgba(12,9,2,0.96);
+      border-color: rgba(160,130,50,0.22);
+      box-shadow: 0 6px 30px rgba(0,0,0,0.6), inset 0 1px 0 rgba(170,138,55,0.07);
+    }
+    body.theme-dark .session-panel::before {
+      background: radial-gradient(circle at 30% 70%,
+        rgba(180, 148, 40, 0.18) 0%,
+        rgba(150, 118, 20, 0.07) 35%,
+        transparent 70%
+      );
+    }
+    body.theme-dark .session-panel-header {
+      border-bottom-color: rgba(160,130,50,0.15);
+    }
+    body.theme-dark .session-panel-header span { color: #b89840; }
+    body.theme-dark .new-chat-btn {
+      background: linear-gradient(180deg, #9a7c20 0%, #6a5410 100%);
+      border-color: #9a7c20;
+      color: #1c1508;
+      box-shadow: inset 0 1px 0 rgba(200,170,80,0.2), 0 2px 10px rgba(0,0,0,0.4);
+    }
+    body.theme-dark .new-chat-btn:hover {
+      background: linear-gradient(180deg, #9a8030 0%, #7a6018 100%);
+      border-color: #9a8030;
+    }
+    body.theme-dark .session-item { color: #9a7c20; }
+    body.theme-dark .session-item:hover {
+      background: rgba(160,130,50,0.09);
+      color: #c3ad5f;
+    }
+    body.theme-dark .session-item.active {
+      background: linear-gradient(180deg, rgba(160,130,50,0.18) 0%, rgba(160,118,0,0.12) 100%);
+      color: #c3ad5f;
+      box-shadow: inset 0 0 0 1px rgba(160,130,50,0.28);
+    }
+    body.theme-dark .chat-col {
+      background: rgba(18,13,3,0.96);
+      border-color: rgba(160,130,50,0.22);
+      box-shadow: 0 8px 40px rgba(0,0,0,0.6), inset 0 1px 0 rgba(170,138,55,0.07);
+    }
+    body.theme-dark .message.ai {
+      background: rgba(22,17,5,0.98);
+      color: rgba(244, 239, 211, 0.88);
+      border-color: rgba(160,130,50,0.22);
+      box-shadow: inset 0 1px 0 rgba(170,138,55,0.06), 0 4px 20px rgba(0,0,0,0.35);
+    }
+    body.theme-dark .message.user {
+      background: linear-gradient(180deg, #7a5e00 0%, #4e3c00 100%);
+      border-color: rgba(170,138,55,0.45);
+      box-shadow: inset 0 1px 0 rgba(200,170,80,0.15), 0 4px 18px rgba(0,0,0,0.35);
+    }
+    body.theme-dark .mood-area {
+      background: rgba(14,10,2,0.97);
+      border-top-color: rgba(160,130,50,0.15);
+    }
+    body.theme-dark .mood-area-label { color: #9a7c20; }
+    body.theme-dark .mood-btn {
+      border-color: rgba(160,130,50,0.28);
+      background: rgba(22,17,5,0.9);
+    }
+    body.theme-dark .mood-btn:hover {
+      border-color: #b89840;
+      background: rgba(160,130,50,0.12);
+    }
+    body.theme-dark .input-area {
+      background: rgba(14,10,2,0.97);
+      border-top-color: rgba(160,130,50,0.15);
+    }
+    body.theme-dark .input-area input {
+      border-color: rgba(160,130,50,0.22);
+      background: rgba(20,15,3,0.98);
+      color: #c3ad5f;
+    }
+    body.theme-dark .input-area input::placeholder { color: rgba(160,130,50,0.35); }
+    body.theme-dark .input-area input:focus {
+      border-color: #9a7c20;
+      box-shadow: 0 0 0 2px rgba(160,130,50,0.14);
+    }
+    body.theme-dark .send-btn {
+      background: linear-gradient(180deg, #9a7c20 0%, #6a5410 100%);
+      border-color: #9a7c20;
+      color: #1c1508;
+      box-shadow: inset 0 1px 0 rgba(200,170,80,0.2), 0 2px 10px rgba(0,0,0,0.35);
+    }
+    body.theme-dark .send-btn:hover {
+      background: linear-gradient(180deg, #9a8030 0%, #7a6018 100%);
+    }
+    body.theme-dark .gift-btn {
+      background: linear-gradient(135deg, #9a7c20 0%, #6a5410 100%);
+      border-color: rgba(160,130,50,0.4);
+      box-shadow: inset 0 1px 0 rgba(200,170,80,0.15), 0 3px 10px rgba(0,0,0,0.35);
+    }
+    body.theme-dark .gift-btn:hover {
+      background: linear-gradient(135deg, #9a8030 0%, #7a6018 100%);
+      border-color: #b89840;
+    }
+    body.theme-dark .progression-panel {
+      background: rgba(16,12,2,0.98);
+      border-color: rgba(160,130,50,0.22);
+      box-shadow: 0 4px 24px rgba(0,0,0,0.55), inset 0 1px 0 rgba(170,138,55,0.06);
+    }
+    body.theme-dark .progression-title { color: #b89840; }
+    body.theme-dark .progression-bar {
+      background: rgba(40,30,4,0.85);
+      border-color: rgba(160,130,50,0.2);
+    }
+    body.theme-dark .progression-stage { color: #b89840; }
+    body.theme-dark .progression-points { color: #c3ad5f; }
+    body.theme-dark .progression-info { color: #9a7c20; }
+    body.theme-dark .welcome { color: rgba(160,130,50,0.35); }
+    body.theme-dark .empty-sidebar { color: rgba(160,130,50,0.35); }
+    /* 花瓣在黑金模式通过 JS 动态换色，无需 filter */
+
+    /* ===== 黑金：日记链接按钮 ===== */
+    body.theme-dark .diary-link-btn {
+      background: rgba(160,130,50,0.08);
+      border-color: rgba(160,130,50,0.32);
+      color: #b89840;
+    }
+    body.theme-dark .diary-link-btn:hover { background: rgba(160,130,50,0.15); }
+
+    /* ===== 黑金：音乐弹窗 ===== */
+    body.theme-dark .music-modal { background: rgba(8,6,1,0.88); }
+    body.theme-dark .music-modal .modal-content {
+      background: linear-gradient(180deg, #1c1508 0%, #120e02 100%);
+      color: #c3ad5f;
+      border-color: rgba(160,130,50,0.28);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.75), inset 0 1px 0 rgba(170,138,55,0.09);
+    }
+    body.theme-dark .music-modal .modal-header h3 { color: #b89840; }
+    body.theme-dark .music-modal .modal-close {
+      background: rgba(160,130,50,0.1);
+      border-color: rgba(160,130,50,0.32);
+      color: #b89840;
+    }
+    body.theme-dark .music-modal .modal-close:hover {
+      background: rgba(180,138,10,0.55);
+      border-color: #b89840;
+      color: #1c1508;
+    }
+    body.theme-dark .music-search input {
+      border-color: rgba(160,130,50,0.22);
+      background: rgba(20,15,3,0.98);
+      color: #c3ad5f;
+    }
+    body.theme-dark .music-search input::placeholder { color: rgba(160,130,50,0.35); }
+    body.theme-dark .music-search input:focus {
+      border-color: #9a7c20;
+      box-shadow: 0 0 0 2px rgba(160,130,50,0.14);
+    }
+    body.theme-dark .music-search button {
+      background: linear-gradient(180deg, #9a7c20 0%, #6a5410 100%);
+      border-color: #9a7c20;
+      color: #1c1508;
+    }
+    body.theme-dark .music-search button:hover {
+      background: linear-gradient(180deg, #9a8030 0%, #7a6018 100%);
+    }
+    body.theme-dark .music-item:hover {
+      background: rgba(160,130,50,0.07);
+      border-color: rgba(160,130,50,0.2);
+    }
+    body.theme-dark .music-item.playing {
+      background: rgba(160,130,50,0.12);
+      border-color: rgba(160,130,50,0.35);
+    }
+    body.theme-dark .music-item .cover {
+      background: linear-gradient(135deg, rgba(160,130,50,0.32) 0%, rgba(160,118,0,0.42) 100%);
+      border-color: rgba(160,130,50,0.22);
+    }
+    body.theme-dark .music-item .cover::after { background-color: #b89840; }
+    body.theme-dark .music-item .title { color: #c3ad5f; }
+    body.theme-dark .music-item .artist { color: rgba(160,130,50,0.65); }
+    body.theme-dark .music-item .play-icon {
+      background: linear-gradient(135deg, #9a7c20 0%, #6a5410 100%);
+      border-color: rgba(160,130,50,0.4);
+    }
+    body.theme-dark .music-empty,
+    body.theme-dark .music-loading { color: rgba(160,130,50,0.45); }
+    body.theme-dark .music-player-bar {
+      background: rgba(16,12,2,0.98);
+      border-color: rgba(160,130,50,0.2);
+    }
+    body.theme-dark .music-player-bar .cover {
+      background: linear-gradient(135deg, #9a7c20 0%, #6a5410 100%);
+      border-color: rgba(160,130,50,0.35);
+    }
+    body.theme-dark .music-player-bar .cover::after { background-color: #b89840; }
+    body.theme-dark .music-player-bar .title { color: #c3ad5f; }
+    body.theme-dark .music-player-bar .artist { color: rgba(160,130,50,0.65); }
+    body.theme-dark .music-player-bar .control-btn {
+      background: rgba(22,17,5,0.98);
+      border-color: rgba(160,130,50,0.28);
+      color: #b89840;
+    }
+    body.theme-dark .music-player-bar .control-btn:hover {
+      background: rgba(160,130,50,0.12);
+      border-color: #9a7c20;
+    }
+    body.theme-dark .music-player-bar .control-btn.play {
+      background: linear-gradient(135deg, #9a7c20 0%, #6a5410 100%);
+      border-color: #9a7c20;
+    }
+
+    /* ===== 黑金：音乐卡片消息 ===== */
+    body.theme-dark .message.music-card {
+      background: rgba(20,15,3,0.98) !important;
+      border-color: rgba(160,130,50,0.28);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.45), inset 0 1px 0 rgba(170,138,55,0.06);
+    }
+    body.theme-dark .message.music-card .music-card-bottom {
+      border-top-color: rgba(160,130,50,0.15);
+    }
+    body.theme-dark .message.music-card .music-title { color: rgba(244, 239, 211, 0.88); }
+    body.theme-dark .message.music-card .music-artist { color: rgba(255,255,255,0.5); }
+    body.theme-dark .message.music-card .music-icon {
+      background: linear-gradient(135deg, #9a7c20 0%, #6a5410 100%);
+      border-color: rgba(160,130,50,0.35);
+    }
+    body.theme-dark .message.music-card .music-btn {
+      background: rgba(22,17,5,0.98);
+      border-color: rgba(160,130,50,0.25);
+      color: #b89840;
+    }
+    body.theme-dark .message.music-card .music-btn:hover {
+      background: rgba(160,130,50,0.12);
+      border-color: #9a7c20;
+    }
+    body.theme-dark .message.music-card .music-btn.play {
+      background: linear-gradient(135deg, #9a7c20 0%, #6a5410 100%);
+      border-color: #9a7c20;
+      color: #1c1508;
+    }
+    body.theme-dark .message.music-card .music-status { color: #b89840; }
+
+    /* ===== 黑金：礼物弹窗 ===== */
+    body.theme-dark .gift-modal { background: rgba(8,6,1,0.88); }
+    body.theme-dark .gift-modal .modal-content {
+      background: linear-gradient(180deg, #1c1508 0%, #120e02 100%);
+      color: #c3ad5f;
+      border-color: rgba(160,130,50,0.28);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.75), inset 0 1px 0 rgba(170,138,55,0.09);
+    }
+    body.theme-dark .gift-modal .modal-header h3 { color: #b89840; }
+    body.theme-dark .gift-modal .modal-close {
+      background: rgba(160,130,50,0.1);
+      border-color: rgba(160,130,50,0.32);
+      color: #b89840;
+    }
+    body.theme-dark .gift-modal .modal-close:hover {
+      background: rgba(180,138,10,0.55);
+      border-color: #b89840;
+      color: #1c1508;
+    }
+    body.theme-dark .gift-inventory-item {
+      background: rgba(20,15,3,0.96);
+      border-color: rgba(160,130,50,0.15);
+    }
+    body.theme-dark .gift-inventory-item::before {
+      background: linear-gradient(90deg, #b89840, rgba(160,130,50,0.2), #b89840);
+    }
+    body.theme-dark .gift-inventory-item:hover {
+      border-color: rgba(160,130,50,0.45);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.45), 0 0 12px rgba(160,130,50,0.08);
+    }
+    body.theme-dark .gift-inventory-item .name { color: #c3ad5f; }
+    body.theme-dark .gift-inventory-item .count {
+      color: #b89840;
+      background: rgba(160,130,50,0.1);
+      border-color: rgba(160,130,50,0.25);
+    }
+    body.theme-dark .gift-empty {
+      color: rgba(160,130,50,0.45);
+      background: rgba(20,15,3,0.7);
+      border-color: rgba(160,130,50,0.18);
+    }
+    body.theme-dark .gift-empty-icon { background-color: #b89840; }
+
+    /* ===== 黑金：mood-toast ===== */
+    body.theme-dark .mood-toast {
+      background: rgba(16,12,2,0.98);
+      color: #b89840;
+      border-color: rgba(160,130,50,0.4);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.55);
+    }
+
+    /* ===== 黑金：stage-up-toast ===== */
+    body.theme-dark .stage-up-toast {
+      background: linear-gradient(135deg, #b89840 0%, #6a5410 100%);
+      color: #1c1508;
+      box-shadow: 0 8px 32px rgba(160,130,50,0.35);
+    }
+    body.theme-dark .stage-up-toast .sub { color: rgba(28,21,8,0.65); }
+
+    /* ===== 黑金：affection-toast ===== */
+    body.theme-dark .affection-toast {
+      background: linear-gradient(135deg, rgba(170,138,55,0.92) 0%, rgba(160,118,0,0.92) 100%);
+      color: #1c1508;
+    }
+
+    /* ===== 黑金：penalty-toast ===== */
+    body.theme-dark .penalty-toast {
+      background: linear-gradient(135deg, #1c1508 0%, #120e02 100%);
+      color: #9a7c20;
+    }
+
+    /* ===== 黑金：stage-down-toast ===== */
+    body.theme-dark .stage-down-toast {
+      background: linear-gradient(135deg, #1c1508 0%, #100c02 100%);
+      color: #b89840;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.7);
+    }
+    body.theme-dark .stage-down-toast .sub { color: rgba(160,130,50,0.6); }
+
+    /* ===== 黑金：breakup-toast ===== */
+    body.theme-dark .breakup-toast { background: rgba(8,6,1,0.9); }
+    body.theme-dark .breakup-toast .content {
+      background: linear-gradient(135deg, #1c1508 0%, #100c02 100%);
+      border: 1px solid rgba(160,130,50,0.25);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.85);
+    }
+
+    /* ===== 黑金：reconcile-badge ===== */
+    body.theme-dark .reconcile-badge {
+      background: linear-gradient(135deg, #b89840 0%, #6a5410 100%);
+      color: #1c1508;
+    }
+
   </style>
 </head>
 <body>
@@ -995,6 +1376,9 @@
         <button class="action-btn" onclick="openGame()" title="游戏">
           <span class="btn-icon" style="-webkit-mask-image:url('svg/game.svg');mask-image:url('svg/game.svg')"></span>
         </button>
+        <button class="action-btn" id="themeToggleBtn" onclick="toggleTheme()" title="切换黑金风格">
+          <span class="theme-icon">🌙</span>
+        </button>
         <button class="close-btn" onclick="window.close()" title="关闭">✕</button>
       </div>
     </div>
@@ -1006,7 +1390,7 @@
 
     <!-- 竹影摇曳层（纹理与立绘之间） -->
     <div class="character-texture-bg">
-      <img class="sway-img" src="bg.png" alt="">
+      <img class="sway-img" id="bgImg" src="bg.png" alt="">
     </div>
 
     <!-- 花瓣飘落层 -->
@@ -1149,11 +1533,18 @@
       resize();
       window.addEventListener('resize', resize);
 
-      // 花瓣颜色
-      const COLORS = [
+      // 花瓣颜色（粉色 / 黑金模式下换成纯金色）
+      const COLORS_PINK = [
         'rgba(255,183,197,', 'rgba(255,160,185,', 'rgba(255,210,220,',
         'rgba(240,140,170,', 'rgba(255,230,235,',
       ];
+      const COLORS_GOLD = [
+        'rgba(255,215,0,', 'rgba(255,200,0,', 'rgba(255,230,80,',
+        'rgba(240,185,0,', 'rgba(255,240,120,',
+      ];
+      function getPetalColors() {
+        return document.body.classList.contains('theme-dark') ? COLORS_GOLD : COLORS_PINK;
+      }
 
       // 单片花瓣
       function makePetal() {
@@ -1169,7 +1560,7 @@
           swing: Math.random() * Math.PI * 2,   // 左右摆动相位
           swingA: 0.4 + Math.random() * 0.6,   // 摆动幅度
           swingS: 0.008 + Math.random() * 0.01, // 摆动速度
-          color: COLORS[Math.floor(Math.random() * COLORS.length)],
+          colorIdx: Math.floor(Math.random() * 5),
           alpha: 0.55 + Math.random() * 0.35,
         };
       }
@@ -1197,10 +1588,12 @@
         ctx.bezierCurveTo( wid,  -len * 0.1,   wid,   len * 0.3,  0,  len / 2);
         ctx.bezierCurveTo(-wid,   len * 0.3,  -wid,  -len * 0.1,  0, -len / 2);
 
+        const colors = getPetalColors();
+        const c = colors[p.colorIdx % colors.length];
         const grad = ctx.createLinearGradient(0, -len / 2, 0, len / 2);
-        grad.addColorStop(0,   p.color + (p.alpha * 0.7) + ')');
-        grad.addColorStop(0.5, p.color + p.alpha + ')');
-        grad.addColorStop(1,   p.color + (p.alpha * 0.6) + ')');
+        grad.addColorStop(0,   c + (p.alpha * 0.7) + ')');
+        grad.addColorStop(0.5, c + p.alpha + ')');
+        grad.addColorStop(1,   c + (p.alpha * 0.6) + ')');
         ctx.fillStyle = grad;
         ctx.fill();
 
@@ -1773,9 +2166,9 @@ ${extraContext}
         el.dataset.musicId = m.music.id;
         const isPlaying = m.music.isPlaying;
         const playIcon = isPlaying
-          ? '<svg width="14" height="14" viewBox="0 0 24 24" fill="#fff"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>'
-          : '<svg width="14" height="14" viewBox="0 0 24 24" fill="#fff"><polygon points="5,3 19,12 5,21"/></svg>';
-        const stopIcon = '<svg width="12" height="12" viewBox="0 0 24 24" fill="#c06080"><rect x="4" y="4" width="16" height="16"/></svg>';
+          ? '<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>'
+          : '<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>';
+        const stopIcon = '<svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><rect x="4" y="4" width="16" height="16"/></svg>';
         el.innerHTML = `
           <div class="music-card-top">
             <div class="music-info">
@@ -2064,6 +2457,7 @@ ${extraContext}
     function openGiftModal() {
       renderGiftInventory();
       document.getElementById('giftModal').classList.add('show');
+      if (document.body.classList.contains('theme-dark')) applyInlineIconColors(true);
     }
 
     function closeGiftModal() {
@@ -2157,6 +2551,7 @@ ${extraContext}
     function openMusicPlayer() {
       document.getElementById('musicModal').classList.add('show');
       document.getElementById('musicSearchInput').focus();
+      if (document.body.classList.contains('theme-dark')) applyInlineIconColors(true);
     }
 
     function closeMusicPlayer() {
@@ -2538,6 +2933,53 @@ ${extraContext}
       setTimeout(() => toast.classList.remove('show'), 3000);
     }
 
+    // ===== 换肤 =====
+    const THEME_KEY = 'monkey_theme';
+
+    function applyInlineIconColors(isDark) {
+      // 将所有内联 style 中写死 #c03050 的 mask icon 动态切换颜色
+      document.querySelectorAll('[style]').forEach(el => {
+        const s = el.style;
+        if (isDark) {
+          if (s.backgroundColor === 'rgb(192, 48, 80)' || s.backgroundColor === '#c03050') {
+            el.style.backgroundColor = '#b89840';
+            el.dataset.themeIconChanged = '1';
+          }
+        } else {
+          if (el.dataset.themeIconChanged) {
+            el.style.backgroundColor = '#c03050';
+            delete el.dataset.themeIconChanged;
+          }
+        }
+      });
+    }
+
+    function applyBgImage(isDark) {
+      document.getElementById('bgImg').src = isDark ? 'bg1.png' : 'bg.png';
+    }
+
+    function toggleTheme() {
+      const isDark = document.body.classList.toggle('theme-dark');
+      localStorage.setItem(THEME_KEY, isDark ? 'dark' : 'light');
+      document.getElementById('themeToggleBtn').title = isDark ? '切换粉色风格' : '切换黑金风格';
+      document.getElementById('themeToggleBtn').querySelector('.theme-icon').textContent = isDark ? '🌸' : '🌙';
+      applyInlineIconColors(isDark);
+      applyBgImage(isDark);
+    }
+
+    function initTheme() {
+      const saved = localStorage.getItem(THEME_KEY);
+      if (saved === 'dark') {
+        document.body.classList.add('theme-dark');
+        document.getElementById('themeToggleBtn').title = '切换粉色风格';
+        document.getElementById('themeToggleBtn').querySelector('.theme-icon').textContent = '🌸';
+        requestAnimationFrame(() => {
+          applyInlineIconColors(true);
+          applyBgImage(true);
+        });
+      }
+    }
+
     // ===== 初始化 =====
     // 设置顶部昵称
     function updateHeaderName() {
@@ -2545,6 +2987,7 @@ ${extraContext}
       const aiName = profile.aiName || '沈砚之';
       document.getElementById('headerLeft').textContent = aiName;
     }
+    initTheme();
     updateHeaderName();
     updateProgressionUI();
 

@@ -236,6 +236,86 @@
       flex-shrink: 0;
     }
     .kudos-area.loading .kudos-text { opacity: 0.5; }
+
+    /* ===== 黑金主题 ===== */
+    body.theme-dark {
+      background: linear-gradient(180deg, #1c1508 0%, #100c02 60%, #1a1306 100%);
+      color: #c3ad5f;
+    }
+    body.theme-dark .header {
+      background: rgba(14,10,2,0.98);
+      border-bottom-color: rgba(160,130,50,0.28);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.4);
+    }
+    body.theme-dark .header-text h1 { color: #b89840; }
+    body.theme-dark .header-text p { color: rgba(160,130,50,0.6); }
+    body.theme-dark .header-close {
+      background: rgba(160,130,50,0.1);
+      border-color: rgba(160,130,50,0.38);
+      color: #b89840;
+    }
+    body.theme-dark .header-close:hover {
+      background: rgba(180,138,10,0.55);
+      border-color: #b89840;
+      color: #1c1508;
+    }
+    body.theme-dark .stats {
+      background: rgba(14,10,2,0.97);
+      border-bottom-color: rgba(160,130,50,0.12);
+    }
+    body.theme-dark .stat-card {
+      background: rgba(20,15,3,0.98);
+      border-color: rgba(160,130,50,0.2);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    }
+    body.theme-dark .stat-card .count { color: #b89840; }
+    body.theme-dark .stat-card .label { color: rgba(160,130,50,0.65); }
+    body.theme-dark .filter-bar {
+      background: rgba(14,10,2,0.97);
+      border-bottom-color: rgba(160,130,50,0.12);
+    }
+    body.theme-dark .filter-btn {
+      border-color: rgba(160,130,50,0.22);
+      color: rgba(160,130,50,0.65);
+    }
+    body.theme-dark .filter-btn.active,
+    body.theme-dark .filter-btn:hover {
+      background: linear-gradient(135deg, #9a7c20 0%, #6a5410 100%);
+      border-color: #9a7c20;
+      color: #1c1508;
+    }
+    body.theme-dark .date-group { color: rgba(160,130,50,0.6); }
+    body.theme-dark .date-group::after { background: rgba(160,130,50,0.1); }
+    body.theme-dark .record {
+      background: rgba(20,15,3,0.98);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.25);
+      border-top-color: rgba(160,118,0,0.12);
+      border-left-color: rgba(160,130,50,0.12);
+    }
+    body.theme-dark .record.happy  { border-left-color: #b89840; }
+    body.theme-dark .record.neutral { border-left-color: #7a6030; }
+    body.theme-dark .record.sad    { border-left-color: #5a5040; }
+    body.theme-dark .record .mood-label { color: #c3ad5f; }
+    body.theme-dark .record .mood-time { color: rgba(160,130,50,0.55); }
+    body.theme-dark .empty { color: rgba(160,130,50,0.42); }
+    body.theme-dark .clear-btn {
+      border-color: rgba(160,130,50,0.32);
+      color: #b89840;
+    }
+    body.theme-dark .clear-btn:hover {
+      background: rgba(160,130,50,0.09);
+      border-color: #b89840;
+      color: #b89840;
+    }
+    body.theme-dark .kudos-area {
+      background: rgba(20,15,3,0.98);
+      border-color: rgba(160,130,50,0.22);
+    }
+    body.theme-dark .kudos-area .kudos-text { color: rgba(160,130,50,0.8); }
+    body.theme-dark .kudos-area .kudos-refresh {
+      background: linear-gradient(135deg, #9a7c20 0%, #6a5410 100%);
+      border-color: #9a7c20;
+    }
   </style>
 </head>
 <body>
@@ -481,6 +561,11 @@
     });
 
     renderList();
+
+    // 同步主题
+    if (localStorage.getItem('monkey_theme') === 'dark') {
+      document.body.classList.add('theme-dark');
+    }
 
     // 关闭窗口
     document.getElementById('closeBtn').addEventListener('click', () => {

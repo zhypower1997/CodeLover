@@ -709,6 +709,35 @@
             text-align: center;
             pointer-events: none;
         }
+
+        /* ===== 黑金主题 ===== */
+        body.theme-dark {
+            background: linear-gradient(180deg, #1c1508 0%, #100c02 100%);
+        }
+        body.theme-dark #titlebar {
+            background: rgba(14,10,2,0.98);
+            border-bottom-color: rgba(160,130,50,0.28);
+            box-shadow: 0 2px 12px rgba(0,0,0,0.4);
+        }
+        body.theme-dark #titlebar span { color: #b89840; }
+        body.theme-dark #titlebar button {
+            background: rgba(160,130,50,0.1);
+            border-color: rgba(160,130,50,0.38);
+            color: #b89840;
+        }
+        body.theme-dark #titlebar button:hover {
+            background: rgba(180,138,10,0.55);
+            border-color: #b89840;
+            color: #1c1508;
+        }
+        body.theme-dark #gameContainer {
+            box-shadow: 0 20px 60px rgba(0,0,0,0.55);
+        }
+        /* icon 颜色 */
+        body.theme-dark [style*="background-color:#c03050"],
+        body.theme-dark [style*="background-color: #c03050"] {
+            background-color: #b89840 !important;
+        }
     </style>
 </head>
 <body>
@@ -3847,6 +3876,11 @@
             const { ipcRenderer } = require('electron');
             ipcRenderer.send('close-game');
         });
+
+        // 同步主题
+        if (localStorage.getItem('monkey_theme') === 'dark') {
+            document.body.classList.add('theme-dark');
+        }
     </script>
 </body>
 </html>
