@@ -93,6 +93,44 @@
       padding: 4px;
     }
 
+    /* ===== 金色纹理背景层 ===== */
+    .texture-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .texture-bg img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      opacity: 0.08;
+      mix-blend-mode: luminosity;
+      filter: saturate(1.4) brightness(0.75);
+    }
+    /* ===== 立绘尺寸背景层（立绘与纹理之间） ===== */
+    .character-texture-bg {
+      position: absolute;
+      bottom: 0;
+      left: -60px;
+      width: 480px;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .character-texture-bg img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      opacity: 1;
+      mix-blend-mode: luminosity;
+      filter: saturate(1.6) brightness(0.7);
+    }
     /* ===== 立绘：固定在左下角 ===== */
     .character-bg {
       position: absolute;
@@ -875,6 +913,16 @@
         <button class="action-btn" onclick="openGame()">🎮</button>
         <button class="close-btn" onclick="window.close()" title="关闭">✕</button>
       </div>
+    </div>
+
+    <!-- 金色纹理背景层（最底层） -->
+    <div class="texture-bg">
+      <img src="bg.jpg" alt="">
+    </div>
+
+    <!-- 立绘尺寸背景层（纹理与立绘之间） -->
+    <div class="character-texture-bg">
+      <img src="bg.png" alt="">
     </div>
 
     <!-- 立绘背景层 -->
